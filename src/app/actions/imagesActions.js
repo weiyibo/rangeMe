@@ -30,5 +30,7 @@ export const changeViewMode = (viewMode) => {
     return {type: Image.ACTIONS.CHANGE_VIEW_MODE, payload: viewMode}
 }
 
-
+export const changeColumnViewSize = (size) => {
+    return {type: Image.ACTIONS.CHANGE_COLUMN_VIEW_SIZE, payload: size}
+}
 

@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {fetch, changeViewMode} from "../actions/imagesActions";
+import {fetch, changeViewMode, changeColumnViewSize} from "../actions/imagesActions";
 import {changeFilter} from "../actions/filterActions";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -9,8 +9,10 @@ import merge from 'merge'
 import ImageTableView from "../components/ImageTableView.jsx";
 import ImageHelper from "../helpers/imagesHelper"
 import ImageColumnView from "../components/ImageColumnView.jsx";
+import ImageColumnModeSize from "../components/ImageColumnModeSize.jsx";
 
-const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode }) => {
+const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, columnViewModeSize,
+                  onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
@@ -45,10 +47,14 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMod
                         viewMode == ImageHelper.viewMode.Table ?
                             <span className="glyphicon glyphicon-th x-large-font-size pointer" aria-hidden="true"
                                   data-toggle="tooltip" data-placement="bottom" title="Change view to column"
-                                  onClick={() => onChangeViewMode(ImageHelper.viewMode.Column)}></span> :
-                            <span className="glyphicon glyphicon-align-justify x-large-font-size pointer" aria-hidden="true"
-                                  data-toggle="tooltip" data-placement="bottom" title="Change view to table"
-                                  onClick={() => onChangeViewMode(ImageHelper.viewMode.Table)}></span>
+                                  onClick={() => onChangeViewMode(ImageHelper.viewMode.Column)}></span>
+                             :
+                            <Fragment>
+                                <ImageColumnModeSize size={columnViewModeSize} onChangeColumnViewSize={onChangeColumnViewSize} size={columnViewModeSize}/>
+                                <span className="glyphicon glyphicon-align-justify x-large-font-size pointer" aria-hidden="true"
+                                      data-toggle="tooltip" data-placement="bottom" title="Change view to table"
+                                      onClick={() => onChangeViewMode(ImageHelper.viewMode.Table)}></span>
+                            </Fragment>
                     }
                 </div>
             </div>
@@ -57,7 +63,7 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMod
                     <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)}/> :
                     <ImageColumnView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
-                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)}/>
+                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)} size={columnViewModeSize}/>
             }
         </Fragment>
     )
@@ -70,7 +76,8 @@ const mapStoreToProps = (store, props) => {
         tagSuggestions: store.imagesReducer.tagSuggestions,
         authorSuggestions: store.imagesReducer.authorSuggestions,
         filterObject: store.imagesReducer.filterObject,
-        viewMode: store.imagesReducer.viewMode
+        viewMode: store.imagesReducer.viewMode,
+        columnViewModeSize: store.imagesReducer.columnViewModeSize
     }
 }
 
@@ -109,6 +116,9 @@ const mapDispatchToProps = dispatch => {
         },
         onChangeViewMode: (viewMode) => {
             dispatch(changeViewMode(viewMode));
+        },
+        onChangeColumnViewSize: (size) => {
+            dispatch(changeColumnViewSize(size));
         }
     }
 }

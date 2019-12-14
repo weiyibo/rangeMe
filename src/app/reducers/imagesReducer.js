@@ -10,7 +10,8 @@ let initialState = {
     tagSuggestions: [],
     authorSuggestions: [],
     filterObject: Filter.defaultValue,
-    viewMode: C.viewMode.Column
+    viewMode: C.viewMode.Column,
+    columnViewModeSize: 4
 }
 
 export default function (state = initialState, action) {
@@ -59,6 +60,10 @@ export default function (state = initialState, action) {
         case C.ACTIONS.CHANGE_VIEW_MODE: {
             return merge(true, state, {viewMode: payload});
         }
+        case C.ACTIONS.CHANGE_COLUMN_VIEW_SIZE: {
+            return merge(true, state, {columnViewModeSize: payload});
+        }
+
     }
     return state;
 }

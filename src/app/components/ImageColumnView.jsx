@@ -1,13 +1,12 @@
 import React from "react";
 import moment from "moment";
 
-const ImageColumnView = ({ images, onTagClick, onAuthorClick }) => {
+const ImageColumnView = ({ images, size, onTagClick, onAuthorClick }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
     const imageRows = [];
     let imageRow = [];
-    let size = 3;
     images.map(image => {
         if(imageRow.length == size) {
             imageRows.push(imageRow);
@@ -19,13 +18,14 @@ const ImageColumnView = ({ images, onTagClick, onAuthorClick }) => {
     if(imageRow.length > 0) {
         imageRows.push(imageRow);
     }
+    const colSize = 12 / size;
     return (
         <div className="margin-top-10">
             {imageRows.map((imageRow, rowIndex) => (
                 <div className="row" key={`row-${rowIndex}`}>
                     {
                         imageRow.map( (image, index) => (
-                            <div className="col-sm-6 col-md-4" key={index}>
+                            <div className={`col-sm-${colSize}`} key={index}>
                                 <div className="thumbnail table-word-break">
                                     <a href={image.link} target="_blank">
                                         <img src={image.imgUrl} alt={image.imgAlt} className="img-thumbnail"/>

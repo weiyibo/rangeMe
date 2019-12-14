@@ -4,7 +4,8 @@ const imagesHelper = {
         FETCH_IMAGES: "FETCH_IMAGES"
     },
     ACTIONS: {
-        CHANGE_VIEW_MODE: "CHANGE_VIEW_MODE"
+        CHANGE_VIEW_MODE: "CHANGE_VIEW_MODE",
+        CHANGE_COLUMN_VIEW_SIZE: "CHANGE_COLUMN_VIEW_SIZE",
     },
     viewMode: {
         Table: "table",
