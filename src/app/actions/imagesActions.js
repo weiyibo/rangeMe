@@ -7,15 +7,15 @@ export const fetch = (filterObject) => dispatch => (
     new Promise((resolve, reject) => {
         let url = Image.REST_URL;
         if(filterObject) {
-            if(filterObject.authorFilterValues.includes(",")) {
+            if(filterObject.authorFilterValues.length > 1) {
                 url += `&ids=${filterObject.authorFilterValues}`;
-            }else if(filterObject.authorFilterValues.length > 1) {
-                url += `&id=${filterObject.authorFilterValues}`;
             }
 
             if(filterObject.tagFilterValues.length > 1) {
                 url += `&tags=${filterObject.tagFilterValues}`;
             }
+
+            url += `&tagmode=${filterObject.tagModeFilterValue}`;
         }
         dispatch(isBusyLoaderShow(true));
         axios.get(url).then(response => {

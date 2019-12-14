@@ -7,7 +7,8 @@ const filterHelper = {
     },
     defaultValue: {
         authorFilterValues: "",
-        tagFilterValues: ""
+        tagFilterValues: "",
+        tagModeFilterValue: 'all'
     }
 }
 
