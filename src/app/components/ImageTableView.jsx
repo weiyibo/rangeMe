@@ -3,7 +3,7 @@ import moment from "moment";
 
 const ImageTableView = ({ images, onTagClick }) => {
     return (
-        <div className="table-responsive">
+        <div className="table-responsive margin-top-10">
             <table className="table table-hover table-word-break">
                 <thead>
                 <tr>
