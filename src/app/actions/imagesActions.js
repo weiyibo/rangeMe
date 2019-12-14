@@ -3,11 +3,11 @@ import Image from "../helpers/imagesHelper"
 import Tag from "../helpers/tagsHelper"
 import Author from "../helpers/authorsHelper"
 import {FULFILLED} from "redux-promise-middleware";
+import {isBusyLoaderShow} from "./busyActions"
 
 export const fetch = (filterObject) => dispatch => (
     new Promise((resolve, reject) => {
         let url = Image.REST_URL;
-
         if(filterObject) {
             if(filterObject.authorFilterValues.includes(",")) {
                 url += `&ids=${filterObject.authorFilterValues}`;
@@ -19,7 +19,7 @@ export const fetch = (filterObject) => dispatch => (
                 url += `&tags=${filterObject.tagFilterValues}`;
             }
         }
-
+        dispatch(isBusyLoaderShow(true));
         axios.get(url).then(response => {
             const tagSuggestions = [];
             let authorSuggestions = [];

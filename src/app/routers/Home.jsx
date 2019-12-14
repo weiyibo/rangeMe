@@ -8,7 +8,7 @@ import 'react-select/dist/react-select.css';
 import merge from 'merge'
 import ImageTableView from "../components/ImageTableView.jsx";
 
-const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelectorChange, onTagClick }) => {
+const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelectorChange, onTagClick, onAuthorClick }) => {
     return (
         <Fragment>
             <div className="row">
@@ -26,7 +26,7 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelec
                             options={tagSuggestions} onChange={(e) => onSelectorChange("tag", e, filterObject)} simpleValue/>
                 </div>
             </div>
-            <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}/>
+            <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)} onAuthorClick={(e) => onAuthorClick(e, filterObject)}/>
         </Fragment>
     )
 }
@@ -60,6 +60,15 @@ const mapDispatchToProps = dispatch => {
             if(tagArray.filter(_ => _ === tag).length == 0) {
                 let newFilterObject = merge(true, filterObject);
                 newFilterObject.tagFilterValues += `,${tag}`;
+                dispatch(changeFilter(newFilterObject));
+                dispatch(fetch(newFilterObject));
+            }
+        },
+        onAuthorClick: (authorId, filterObject) => {
+            const authorNameArray = filterObject.authorFilterValues.split(",");
+            if(authorNameArray.filter(_ => _ === authorId).length == 0) {
+                let newFilterObject = merge(true, filterObject);
+                newFilterObject.authorFilterValues += `,${authorId}`;
                 dispatch(changeFilter(newFilterObject));
                 dispatch(fetch(newFilterObject));
             }

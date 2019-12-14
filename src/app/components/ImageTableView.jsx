@@ -1,7 +1,10 @@
 import React, {Fragment} from "react";
 import moment from "moment";
 
-const ImageTableView = ({ images, onTagClick }) => {
+const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     return (
         <div className="table-responsive margin-top-10">
             <table className="table table-hover table-word-break">
@@ -17,7 +20,11 @@ const ImageTableView = ({ images, onTagClick }) => {
                 {images.map((image, index) => (
                     <tr key={index}>
                         <td></td>
-                        <td>{image.authorName}</td>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="right" title="Click for searching"><span onClick={() => onAuthorClick(image.author_id)} className="pointer">
+                                {image.authorName}
+                            </span></a>
+                        </td>
                         <td>{moment(image.date_taken).format('LL')}</td>
                         <td>
                             {

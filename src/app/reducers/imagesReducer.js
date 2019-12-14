@@ -3,15 +3,20 @@ import C from '../helpers/imagesHelper';
 import { FULFILLED } from 'redux-promise-middleware'
 
 let initialState = {
-    images: []
+    images: [],
+    tagSuggestions: [],
+    authorSuggestions: []
 }
 
 export default function (state = initialState, action) {
     const {type, payload} = action;
     switch (type) {
         case `${C.REST_ACTIONS.FETCH_IMAGES}_${FULFILLED}`: {
-            const {images, tagSuggestions, authorSuggestions} = payload;
-            return merge(true, state, {images, tagSuggestions, authorSuggestions: authorSuggestions && authorSuggestions});
+            let {images, tagSuggestions, authorSuggestions} = payload;
+            if(!authorSuggestions){
+                authorSuggestions = state.authorSuggestions
+            }
+            return merge(true, state, {images, tagSuggestions, authorSuggestions: authorSuggestions});
         }
     }
     return state;
