@@ -29,7 +29,7 @@ const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
                         <td>
                             {
                                 image.tagArray &&
-                                image.tagArray.map(tag => <span className="label label-primary custom-tag" key={tag} onClick={() => onTagClick(tag)}>{tag}</span>)
+                                image.tagArray.map(tag => <span className="label label-info custom-tag" key={tag} onClick={() => onTagClick(tag)}>{tag}</span>)
                             }
                         </td>
                     </tr>
