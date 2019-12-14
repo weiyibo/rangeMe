@@ -11,7 +11,7 @@ let initialState = {
     authorSuggestions: [],
     filterObject: Filter.defaultValue,
     viewMode: C.viewMode.Column,
-    columnViewModeSize: 4
+    columnViewModeSize: C.defaultColumnViewSize
 }
 
 export default function (state = initialState, action) {

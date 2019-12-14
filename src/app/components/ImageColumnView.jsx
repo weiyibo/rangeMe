@@ -2,9 +2,6 @@ import React from "react";
 import moment from "moment";
 
 const ImageColumnView = ({ images, size, onTagClick, onAuthorClick }) => {
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
     const imageRows = [];
     let imageRow = [];
     images.map(image => {

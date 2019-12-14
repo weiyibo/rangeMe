@@ -14,7 +14,7 @@ import ImageColumnModeSize from "../components/ImageColumnModeSize.jsx";
 const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, columnViewModeSize,
                   onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize }) => {
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
     });
     return (
         <Fragment>
@@ -116,6 +116,7 @@ const mapDispatchToProps = dispatch => {
         },
         onChangeViewMode: (viewMode) => {
             dispatch(changeViewMode(viewMode));
+            $(".tooltip").remove();
         },
         onChangeColumnViewSize: (size) => {
             dispatch(changeColumnViewSize(size));

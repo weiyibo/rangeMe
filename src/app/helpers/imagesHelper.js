@@ -10,7 +10,8 @@ const imagesHelper = {
     viewMode: {
         Table: "table",
         Column: "column"
-    }
+    },
+    defaultColumnViewSize: 3
 }
 
 export default imagesHelper;
