@@ -18,14 +18,17 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelec
             </div>
             <div className="row">
                 <div className="col-sm-5 col-xs-12 margin-bottom-10" >
+                    <label>Authors</label>
                     <Select placeholder="Authors" clearable={true} multi={true} value={filterObject.authorFilterValues}
                             options={authorSuggestions} onChange={(e) => onSelectorChange("author", e, filterObject)} simpleValue/>
                 </div>
                 <div className="col-sm-5 col-xs-12 margin-bottom-10">
+                    <label>Tags</label>
                     <Select placeholder="Tags" clearable={true} multi={true} value={filterObject.tagFilterValues}
                             options={tagSuggestions} onChange={(e) => onSelectorChange("tag", e, filterObject)} simpleValue/>
                 </div>
                 <div className="col-sm-2 col-xs-12 margin-bottom-10">
+                    <label>Tag Mode</label>
                     <Select placeholder="Tag Mode" clearable={false} multi={false} value={filterObject.tagModeFilterValue}
                             options={ [{label: "All", value: 'all'}, {label: "Any", value: 'any'}]}
                             onChange={(e) => onSelectorChange("tagMode", e, filterObject)} simpleValue/>
