@@ -10,7 +10,7 @@ import ImageTableView from "../components/ImageTableView.jsx";
 
 const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelectorChange, onTagClick }) => {
     return (
-        <div className="container">
+        <Fragment>
             <div className="row">
                 <div className="col-sm-6 col-xs-12">
                     <Select placeholder="Authors" clearable={true} multi={true} value={filterObject.authorFilterValues}
@@ -22,7 +22,7 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelec
                 </div>
             </div>
             <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}/>
-        </div>
+        </Fragment>
     )
 }
 

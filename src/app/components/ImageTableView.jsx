@@ -3,14 +3,14 @@ import moment from "moment";
 
 const ImageTableView = ({ images, onTagClick }) => {
     return (
-        <div className="">
-            <table className="table table-hover">
+        <div className="table-responsive">
+            <table className="table table-hover table-word-break">
                 <thead>
                 <tr>
-                    <th className="col-sm-3 col-md-3">Image</th>
-                    <th className="col-sm-3 col-md-3">Author</th>
-                    <th className="col-sm-3 col-md-3">Date</th>
-                    <th className="col-sm-3 col-md-3">Tags</th>
+                    <th className="col-sm-2">Image</th>
+                    <th className="col-sm-3">Author</th>
+                    <th className="col-sm-2">Date</th>
+                    <th className="col-sm-5">Tags</th>
                 </tr>
                 </thead>
                 <tbody>
