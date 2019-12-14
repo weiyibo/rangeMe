@@ -37,7 +37,7 @@ const mapStoreToProps = (store, props) => {
         images: store.imagesReducer.images,
         tagSuggestions: store.imagesReducer.tagSuggestions,
         authorSuggestions: store.imagesReducer.authorSuggestions,
-        filterObject: store.filterReducer.filterObject
+        filterObject: store.imagesReducer.filterObject
     }
 }
 
