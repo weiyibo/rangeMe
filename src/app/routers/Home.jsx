@@ -12,11 +12,16 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelec
     return (
         <Fragment>
             <div className="row">
-                <div className="col-sm-6 col-xs-12">
+                <div className="col-sm-12" >
+                    <h1>Images</h1>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm-6 col-xs-12 margin-bottom-10" >
                     <Select placeholder="Authors" clearable={true} multi={true} value={filterObject.authorFilterValues}
                             options={authorSuggestions} onChange={(e) => onSelectorChange("author", e, filterObject)} simpleValue/>
                 </div>
-                <div className="col-sm-6 col-xs-12">
+                <div className="col-sm-6 col-xs-12 margin-bottom-10">
                     <Select placeholder="Tags" clearable={true} multi={true} value={filterObject.tagFilterValues}
                             options={tagSuggestions} onChange={(e) => onSelectorChange("tag", e, filterObject)} simpleValue/>
                 </div>
