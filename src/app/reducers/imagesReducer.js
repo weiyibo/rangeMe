@@ -10,7 +10,7 @@ let initialState = {
     tagSuggestions: [],
     authorSuggestions: [],
     filterObject: Filter.defaultValue,
-    viewMode: C.viewMode.Table
+    viewMode: C.viewMode.Column
 }
 
 export default function (state = initialState, action) {

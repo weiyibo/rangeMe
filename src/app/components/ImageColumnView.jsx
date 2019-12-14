@@ -5,22 +5,53 @@ const ImageColumnView = ({ images, onTagClick, onAuthorClick }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+    const imageRows = [];
+    let imageRow = [];
+    let size = 3;
+    images.map(image => {
+        if(imageRow.length == size) {
+            imageRows.push(imageRow);
+            imageRow = [image];
+        }else {
+            imageRow.push(image);
+        }
+    });
+    if(imageRow.length > 0) {
+        imageRows.push(imageRow);
+    }
     return (
-        <div className="row">
-            <div className="col-sm-6 col-md-4">
-                <div className="thumbnail">
-                    <img src="..." alt="..."/>
-                        <div className="caption">
-                            <h3>Thumbnail label</h3>
-                            <p>...</p>
-                            <p><a href="#" className="btn btn-primary" role="button">Button</a>
-                                <a href="#"
-                                   className="btn btn-default"
-                                   role="button">Button</a>
-                            </p>
-                        </div>
+        <div className="margin-top-10">
+            {imageRows.map((imageRow, rowIndex) => (
+                <div className="row" key={`row-${rowIndex}`}>
+                    {
+                        imageRow.map( (image, index) => (
+                            <div className="col-sm-6 col-md-4" key={index}>
+                                <div className="thumbnail table-word-break">
+                                    <a href={image.link} target="_blank">
+                                        <img src={image.imgUrl} alt={image.imgAlt} className="img-thumbnail"/>
+                                    </a>
+                                    <div className="caption">
+                                        <h4><b>Author</b>: &nbsp;
+                                            <a data-toggle="tooltip" data-placement="right" title="Click for searching">
+                                                <span onClick={() => onAuthorClick(image.author_id)} className="pointer">
+                                                    {image.authorName}
+                                                </span>
+                                            </a>
+                                        </h4>
+                                        <h4><b>Date</b>: &nbsp; {moment(image.date_taken).format('LL')}</h4>
+                                        <h4><b>Tags</b>: &nbsp;
+                                            {
+                                                image.tagArray &&
+                                                image.tagArray.map(tag => <span className="label label-info custom-tag" key={tag} onClick={() => onTagClick(tag)}>{tag}</span>)
+                                            }
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
-            </div>
+            ))}
         </div>
     )
 }
