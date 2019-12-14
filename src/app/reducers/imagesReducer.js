@@ -9,7 +9,8 @@ let initialState = {
     images: [],
     tagSuggestions: [],
     authorSuggestions: [],
-    filterObject: Filter.defaultValue
+    filterObject: Filter.defaultValue,
+    viewMode: C.viewMode.Table
 }
 
 export default function (state = initialState, action) {
@@ -54,6 +55,9 @@ export default function (state = initialState, action) {
         }
         case Filter.ACTIONS.CHANGE_FILTER_VALUE: {
             return merge(true, state, {filterObject: payload});
+        }
+        case C.ACTIONS.CHANGE_VIEW_MODE: {
+            return merge(true, state, {viewMode: payload});
         }
     }
     return state;

@@ -26,5 +26,9 @@ export const fetch = (filterObject) => dispatch => (
     })
 );
 
+export const changeViewMode = (viewMode) => {
+    return {type: Image.ACTIONS.CHANGE_VIEW_MODE, payload: viewMode}
+}
+
 
 

@@ -4,7 +4,12 @@ const imagesHelper = {
         FETCH_IMAGES: "FETCH_IMAGES"
     },
     ACTIONS: {
+        CHANGE_VIEW_MODE: "CHANGE_VIEW_MODE"
     },
+    viewMode: {
+        Table: "table",
+        Column: "column"
+    }
 }
 
 export default imagesHelper;

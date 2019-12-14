@@ -6,7 +6,7 @@ const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
         $('[data-toggle="tooltip"]').tooltip()
     });
     return (
-        <div className="table-responsive margin-top-10">
+        <div className="table-responsive">
             <table className="table table-hover table-word-break">
                 <thead>
                 <tr>

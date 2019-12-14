@@ -1,14 +1,19 @@
 import React, {Fragment} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {fetch} from "../actions/imagesActions";
+import {fetch, changeViewMode} from "../actions/imagesActions";
 import {changeFilter} from "../actions/filterActions";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import merge from 'merge'
 import ImageTableView from "../components/ImageTableView.jsx";
+import ImageHelper from "../helpers/imagesHelper"
+import ImageColumnView from "../components/ImageColumnView.jsx";
 
-const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelectorChange, onTagClick, onAuthorClick }) => {
+const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode }) => {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     return (
         <Fragment>
             <div className="row">
@@ -34,7 +39,26 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, onSelec
                             onChange={(e) => onSelectorChange("tagMode", e, filterObject)} simpleValue/>
                 </div>
             </div>
-            <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)} onAuthorClick={(e) => onAuthorClick(e, filterObject)}/>
+            <div className="row margin-top-10">
+                <div className="col-sm-12 text-right">
+                    {
+                        viewMode == ImageHelper.viewMode.Table ?
+                            <span className="glyphicon glyphicon-th x-large-font-size pointer" aria-hidden="true"
+                                  data-toggle="tooltip" data-placement="bottom" title="Change view to column"
+                                  onClick={() => onChangeViewMode(ImageHelper.viewMode.Column)}></span> :
+                            <span className="glyphicon glyphicon-align-justify x-large-font-size pointer" aria-hidden="true"
+                                  data-toggle="tooltip" data-placement="bottom" title="Change view to table"
+                                  onClick={() => onChangeViewMode(ImageHelper.viewMode.Table)}></span>
+                    }
+                </div>
+            </div>
+            {
+                viewMode == ImageHelper.viewMode.Table ?
+                    <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
+                                    onAuthorClick={(e) => onAuthorClick(e, filterObject)}/> :
+                    <ImageColumnView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
+                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)}/>
+            }
         </Fragment>
     )
 }
@@ -45,7 +69,8 @@ const mapStoreToProps = (store, props) => {
         images: store.imagesReducer.images,
         tagSuggestions: store.imagesReducer.tagSuggestions,
         authorSuggestions: store.imagesReducer.authorSuggestions,
-        filterObject: store.imagesReducer.filterObject
+        filterObject: store.imagesReducer.filterObject,
+        viewMode: store.imagesReducer.viewMode
     }
 }
 
@@ -81,6 +106,9 @@ const mapDispatchToProps = dispatch => {
                 dispatch(changeFilter(newFilterObject));
                 dispatch(fetch(newFilterObject));
             }
+        },
+        onChangeViewMode: (viewMode) => {
+            dispatch(changeViewMode(viewMode));
         }
     }
 }
