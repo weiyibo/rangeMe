@@ -42,19 +42,17 @@ export default function (state = initialState, action) {
                 }
                 //Set Image
                 {
-                    //console.log( image.description.match(/<img[^>]*>[\s\S]*<\/img>/gi) );
                     const imgJquery = $( $("<div>" + image.description + "</div>").html()).find("img");
                     image.imgUrl = imgJquery.attr('src');
                     image.imgAlt = imgJquery.attr('alt');
-
                 }
                 return image;
             });
 
             newAuthorSuggestions = (filterObject == null || filterObject.authorFilterValues.length == 0) ? newAuthorSuggestions : authorSuggestions;
-            return merge(true, state, {images, newTagSuggestions, authorSuggestions});
+            return merge(true, state, {images, tagSuggestions: newTagSuggestions, authorSuggestions: newAuthorSuggestions});
         }
-        case C.ACTIONS.CHANGE_FILTER_VALUE: {
+        case Filter.ACTIONS.CHANGE_FILTER_VALUE: {
             return merge(true, state, {filterObject: payload});
         }
     }
