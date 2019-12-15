@@ -1,8 +1,8 @@
 # react-starter-kit
 
-I implement 3 tabs(matched jobs, accepted jobs & rejected jobs). 
-Clicking accept and reject buttons, the job will go the relative tabs. 
-Jobs list in panel, it can collapse and expend (default is expended) 
+This project lists all filtered images with tow different view mode (table & column).
+In column view, user can change the images per row to show different size of images 
+per row. In addition, tags can be hidden if there are two many tags. 
 It contains the following libs:
 
 * React
@@ -10,7 +10,6 @@ It contains the following libs:
 * React Router,
 * React Redux Router, 
 * Bootstrap
-* Bootswatch (Cosmo be default, because I like it)
 * Less
 * Busy Indicator
 * Webpack
@@ -24,6 +23,7 @@ It contains the following libs:
 ```
 npm install
 npm start
+open browser typing http://localhost:3000/
 ```
 
 # Deplay
