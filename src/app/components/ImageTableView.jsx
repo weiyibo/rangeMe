@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import TagComponent from "./TagComponent.jsx";
 
-const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
+const ImageTableView = ({ images, onTagClick, onAuthorClick, onChangeIsShowAllTags }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
@@ -32,7 +32,8 @@ const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
                         </td>
                         <td>{moment(image.date_taken).format('LL')}</td>
                         <td>
-                            <TagComponent isShowAllTags={image.isShowAllTags} onTagClick={onTagClick} tagArray={image.tagArray}/>
+                            <TagComponent isShowAllTags={image.isShowAllTags} onTagClick={onTagClick} tagArray={image.tagArray}
+                                          onChangeIsShowAllTags={(e) => onChangeIsShowAllTags(e, image.id)}/>
                         </td>
                     </tr>
                 ))}

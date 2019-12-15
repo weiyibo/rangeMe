@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {fetch, changeViewMode, changeColumnViewSize} from "../actions/imagesActions";
+import {fetch, changeViewMode, changeColumnViewSize, changeIsShowAllTags} from "../actions/imagesActions";
 import {changeFilter} from "../actions/filterActions";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -12,7 +12,7 @@ import ImageColumnView from "../components/ImageColumnView.jsx";
 import ImageColumnModeSize from "../components/ImageColumnModeSize.jsx";
 
 const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, columnViewModeSize,
-                  onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize }) => {
+                  onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize, onChangeIsShowAllTags }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -61,9 +61,11 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMod
             {
                 viewMode == ImageHelper.viewMode.Table ?
                     <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
-                                    onAuthorClick={(e) => onAuthorClick(e, filterObject)}/> :
+                                    onAuthorClick={(e) => onAuthorClick(e, filterObject)}
+                                    onChangeIsShowAllTags={onChangeIsShowAllTags}/> :
                     <ImageColumnView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
-                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)} size={columnViewModeSize}/>
+                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)}
+                                     size={columnViewModeSize} onChangeIsShowAllTags={onChangeIsShowAllTags}/>
             }
         </Fragment>
     )
@@ -120,6 +122,9 @@ const mapDispatchToProps = dispatch => {
         },
         onChangeColumnViewSize: (size) => {
             dispatch(changeColumnViewSize(size));
+        },
+        onChangeIsShowAllTags: (isShowAllTags, imageId) => {
+            dispatch(changeIsShowAllTags(isShowAllTags, imageId));
         }
     }
 }

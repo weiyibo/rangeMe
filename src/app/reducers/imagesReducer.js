@@ -22,6 +22,7 @@ export default function (state = initialState, action) {
             const newTagSuggestions = [];
             let newAuthorSuggestions = [];
             const images = payload.map(image => {
+
                 //Get & Set Tags
                 {
                     const tagString = image.tags.trim();
@@ -48,6 +49,7 @@ export default function (state = initialState, action) {
                     const imgJquery = $( $("<div>" + image.description + "</div>").html()).find("img");
                     image.imgUrl = imgJquery.attr('src');
                     image.imgAlt = imgJquery.attr('alt');
+                    image.id = C.generateId();
                 }
                 return image;
             });
@@ -63,6 +65,12 @@ export default function (state = initialState, action) {
         }
         case C.ACTIONS.CHANGE_COLUMN_VIEW_SIZE: {
             return merge(true, state, {columnViewModeSize: payload});
+        }
+        case C.ACTIONS.CHANGE_IS_SHOW_ALL_TAGS: {
+            const {images} = state;
+            const {imageId, isShowAllTags} = payload;
+            images.forEach(image => image.isShowAllTags = image.id == imageId ? isShowAllTags : image.isShowAllTags);
+            return merge(true, state, {images});
         }
 
     }

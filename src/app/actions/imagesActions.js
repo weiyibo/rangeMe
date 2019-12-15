@@ -34,3 +34,6 @@ export const changeColumnViewSize = (size) => {
     return {type: Image.ACTIONS.CHANGE_COLUMN_VIEW_SIZE, payload: size}
 }
 
+export const changeIsShowAllTags = (isShowAllTags, imageId) =>{
+    return {type: Image.ACTIONS.CHANGE_IS_SHOW_ALL_TAGS, payload: {isShowAllTags, imageId}}
+}
