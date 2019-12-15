@@ -29,6 +29,7 @@ export default function (state = initialState, action) {
                         const tagArray = tagString.split(" ");
                         tagArray.forEach(tag => !Tag.isTagExisting(tag, newTagSuggestions) && newTagSuggestions.push(Tag.generateTagOption(tag)));
                         image.tagArray = tagArray;
+                        image.isShowAllTags = false;
                     }
                 }
                 //Get & Set Authors

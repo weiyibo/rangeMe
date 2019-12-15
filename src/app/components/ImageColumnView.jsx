@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import TagComponent from "./TagComponent.jsx";
 
 const ImageColumnView = ({ images, size, onTagClick, onAuthorClick }) => {
     const imageRows = [];
@@ -37,10 +38,7 @@ const ImageColumnView = ({ images, size, onTagClick, onAuthorClick }) => {
                                         </h4>
                                         <h4><b>Date</b>: &nbsp; {moment(image.date_taken).format('LL')}</h4>
                                         <h4><b>Tags</b>: &nbsp;
-                                            {
-                                                image.tagArray &&
-                                                image.tagArray.map(tag => <span className="label label-info custom-tag" key={tag} onClick={() => onTagClick(tag)}>{tag}</span>)
-                                            }
+                                            <TagComponent isShowAllTags={image.isShowAllTags} onTagClick={onTagClick} tagArray={image.tagArray}/>
                                         </h4>
                                     </div>
                                 </div>

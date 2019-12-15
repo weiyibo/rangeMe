@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import TagComponent from "./TagComponent.jsx";
 
 const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
     $(function () {
@@ -31,10 +32,7 @@ const ImageTableView = ({ images, onTagClick, onAuthorClick }) => {
                         </td>
                         <td>{moment(image.date_taken).format('LL')}</td>
                         <td>
-                            {
-                                image.tagArray &&
-                                image.tagArray.map(tag => <span className="label label-info custom-tag" key={tag} onClick={() => onTagClick(tag)}>{tag}</span>)
-                            }
+                            <TagComponent isShowAllTags={image.isShowAllTags} onTagClick={onTagClick} tagArray={image.tagArray}/>
                         </td>
                     </tr>
                 ))}
