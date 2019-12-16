@@ -11,7 +11,8 @@ let initialState = {
     authorSuggestions: [],
     filterObject: Filter.defaultValue,
     viewMode: C.viewMode.Column,
-    columnViewModeSize: C.defaultColumnViewSize
+    columnViewModeSize: C.defaultColumnViewSize,
+    pagination: C.pagination
 }
 
 export default function (state = initialState, action) {
@@ -51,11 +52,19 @@ export default function (state = initialState, action) {
                     image.imgAlt = imgJquery.attr('alt');
                     image.id = C.generateId();
                 }
+                //Set pagination
                 return image;
             });
 
             newAuthorSuggestions = (filterObject == null || filterObject.authorFilterValues.length == 0) ? newAuthorSuggestions : authorSuggestions;
-            return merge(true, state, {images, tagSuggestions: newTagSuggestions, authorSuggestions: newAuthorSuggestions});
+
+            //Set pagination
+            const pagination = {
+                totalPages: Math.ceil(images.length / C.pagination.numberPerPage),
+                numberPerPage: C.pagination.numberPerPage,
+                currentPage: 1
+            }
+            return merge(true, state, {images, tagSuggestions: newTagSuggestions, authorSuggestions: newAuthorSuggestions, pagination});
         }
         case Filter.ACTIONS.CHANGE_FILTER_VALUE: {
             return merge(true, state, {filterObject: payload});
@@ -72,7 +81,11 @@ export default function (state = initialState, action) {
             images.forEach(image => image.isShowAllTags = image.id == imageId ? isShowAllTags : image.isShowAllTags);
             return merge(true, state, {images});
         }
-
+        case C.ACTIONS.CHANGE_CURRENT_PAGE: {
+            const {pagination} = state;
+            const newPagination = {...pagination, currentPage: payload}
+            return merge(true, state, {pagination: newPagination});
+        }
     }
     return state;
 }

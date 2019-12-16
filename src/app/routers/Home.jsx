@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {fetch, changeViewMode, changeColumnViewSize, changeIsShowAllTags} from "../actions/imagesActions";
+import {fetch, changeViewMode, changeColumnViewSize, changeIsShowAllTags, changeImageCurrentPage} from "../actions/imagesActions";
 import {changeFilter} from "../actions/filterActions";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -11,11 +11,13 @@ import ImageHelper from "../helpers/imagesHelper"
 import ImageColumnView from "../components/ImageColumnView.jsx";
 import ImageColumnModeSize from "../components/ImageColumnModeSize.jsx";
 
-const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, columnViewModeSize,
-                  onSelectorChange, onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize, onChangeIsShowAllTags }) => {
+const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMode, columnViewModeSize, pagination, onSelectorChange,
+                  onTagClick, onAuthorClick, onChangeViewMode, onChangeColumnViewSize, onChangeIsShowAllTags, onPageClick }) => {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+    const {numberPerPage, currentPage} = pagination;
+    const paginatedImages = images.slice( (currentPage - 1) * numberPerPage, Math.min(images.length, currentPage * numberPerPage));
     return (
         <Fragment>
             <div className="row">
@@ -60,12 +62,14 @@ const Home = ({ images, tagSuggestions, authorSuggestions, filterObject, viewMod
             </div>
             {
                 viewMode == ImageHelper.viewMode.Table ?
-                    <ImageTableView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
+                    <ImageTableView images={paginatedImages} onTagClick={(e) => onTagClick(e, filterObject)}
                                     onAuthorClick={(e) => onAuthorClick(e, filterObject)}
-                                    onChangeIsShowAllTags={onChangeIsShowAllTags}/> :
-                    <ImageColumnView images={images} onTagClick={(e) => onTagClick(e, filterObject)}
+                                    onChangeIsShowAllTags={onChangeIsShowAllTags}
+                                    pagination={pagination} onPageClick={onPageClick}/> :
+                    <ImageColumnView images={paginatedImages} onTagClick={(e) => onTagClick(e, filterObject)}
                                      onAuthorClick={(e) => onAuthorClick(e, filterObject)}
-                                     size={columnViewModeSize} onChangeIsShowAllTags={onChangeIsShowAllTags}/>
+                                     size={columnViewModeSize} onChangeIsShowAllTags={onChangeIsShowAllTags}
+                                     pagination={pagination} onPageClick={onPageClick}/>
             }
         </Fragment>
     )
@@ -79,7 +83,8 @@ const mapStoreToProps = (store, props) => {
         authorSuggestions: store.imagesReducer.authorSuggestions,
         filterObject: store.imagesReducer.filterObject,
         viewMode: store.imagesReducer.viewMode,
-        columnViewModeSize: store.imagesReducer.columnViewModeSize
+        columnViewModeSize: store.imagesReducer.columnViewModeSize,
+        pagination: store.imagesReducer.pagination
     }
 }
 
@@ -125,6 +130,9 @@ const mapDispatchToProps = dispatch => {
         },
         onChangeIsShowAllTags: (isShowAllTags, imageId) => {
             dispatch(changeIsShowAllTags(isShowAllTags, imageId));
+        },
+        onPageClick: (currentPage)=> {
+            dispatch(changeImageCurrentPage(currentPage));
         }
     }
 }

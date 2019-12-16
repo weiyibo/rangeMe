@@ -1,8 +1,9 @@
 import React from "react";
 import moment from "moment";
 import TagComponent from "./TagComponent.jsx";
+import Pagination from './Pagination.jsx';
 
-const ImageColumnView = ({ images, size, onTagClick, onAuthorClick, onChangeIsShowAllTags }) => {
+const ImageColumnView = ({ images, size, pagination, onTagClick, onAuthorClick, onChangeIsShowAllTags, onPageClick }) => {
     const imageRows = [];
     let imageRow = [];
     images.map(image => {
@@ -48,6 +49,7 @@ const ImageColumnView = ({ images, size, onTagClick, onAuthorClick, onChangeIsSh
                     }
                 </div>
             ))}
+            <Pagination pagination={pagination} onPageClick={onPageClick}/>
         </div>
     )
 }

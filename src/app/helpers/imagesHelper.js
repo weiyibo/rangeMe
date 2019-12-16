@@ -6,7 +6,8 @@ const imagesHelper = {
     ACTIONS: {
         CHANGE_VIEW_MODE: "CHANGE_VIEW_MODE",
         CHANGE_COLUMN_VIEW_SIZE: "CHANGE_COLUMN_VIEW_SIZE",
-        CHANGE_IS_SHOW_ALL_TAGS: "CHANGE_IS_SHOW_ALL_TAGS"
+        CHANGE_IS_SHOW_ALL_TAGS: "CHANGE_IS_SHOW_ALL_TAGS",
+        CHANGE_CURRENT_PAGE: "CHANGE_CURRENT_PAGE"
     },
     viewMode: {
         Table: "table",
@@ -17,6 +18,11 @@ const imagesHelper = {
     },
     defaultColumnViewSize: 3,
     defaultAmountOfTagToShow: 5,
+    pagination: {
+        totalPages: 1,
+        numberPerPage: 10,
+        currentPage: 1
+    }
 }
 
 export default imagesHelper;
